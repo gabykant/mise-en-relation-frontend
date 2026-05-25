@@ -8,6 +8,6 @@ RUN npm run build -- --configuration production
 
 # Runtime avec Nginx léger
 FROM nginx:alpine
-COPY --from=builder /app/dist/frontend/browser /usr/share/nginx/html
+COPY --from=builder /app/dist/front/browser /usr/share/nginx/html
 COPY nginx-spa.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8081
