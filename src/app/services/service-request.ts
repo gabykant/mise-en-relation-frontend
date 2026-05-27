@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
 import { Auth } from '@core/services/auth';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ServiceRequest } from '@models/service-request.model';
 
@@ -12,7 +12,11 @@ export class ServiceRequestService {
   constructor(private http: HttpClient, @Inject(Auth) private auth: Auth) {}
 
   private getHeaders() {
-    return new HttpHeaders({ 'X-Admin-Token': this.auth.getToken() || '' });
+    const token = localStorage.getItem(Auth.TOKEN_KEY) || '';
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Admin-Token': token
+    });
   }
 
   getAllRequests(): Observable<ServiceRequest[]> {
