@@ -14,8 +14,6 @@ export class Auth {
 
   login(token: string): Observable<any> {
     const url = `${environment.apiUrl}/api/v1/admin/ping`;
-
-    console.log('Sending login request to:', token);
     
     return this.http.get(url, {
       headers: { 'X-Admin-Token': token }

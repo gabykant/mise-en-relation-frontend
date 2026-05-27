@@ -25,7 +25,6 @@ export class ArtisanList implements OnInit {
   ngOnInit(): void {
     this.artisanService.getAllArtisans().subscribe(data => {
       this.artisans = data;
-      console.log('Artisans:', this.artisans);
       this.loading = false;
     });
   }
