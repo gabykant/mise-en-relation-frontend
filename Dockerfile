@@ -14,5 +14,5 @@ RUN chmod -R 755 /usr/share/nginx/html
 # 2. On utilise un script d'entrée (entrypoint) pour remplacer la variable
 # Le script remplace ${API_URL} dans tous les fichiers JS du dossier 
 # avant de démarrer Nginx.
-CMD /bin/sh -c "envsubst '\$API_URL' < /usr/share/nginx/html/main.*.js > /tmp/main.js && mv /tmp/main.js /usr/share/nginx/html/main.*.js && nginx -g 'daemon off;'"
+CMD /bin/sh -c "envsubst '\$API_URL' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html.tmp && mv /usr/share/nginx/html/index.html.tmp /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"
 EXPOSE 8081

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://artisan.ksoft-solutions.com'
+    apiUrl: (window as any).__env?.apiUrl || 'https://artisan.ksoft-solutions.com'
 };
