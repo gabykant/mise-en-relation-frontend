@@ -1,0 +1,26 @@
+.admin-wrapper { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 240px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar .logo { font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem; }
+
+.sidebar nav a {
+  display: block;
+  color: #bdc3c7;
+  text-decoration: none;
+  padding: 12px 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.sidebar nav a:hover, .sidebar nav a.active {
+  background-color: #34495e;
+  color: white;
+}
+
+.content { flex: 1; padding: 40px; background-color: #f8f9fa; }
