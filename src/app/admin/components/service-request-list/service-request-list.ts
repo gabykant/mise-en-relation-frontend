@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef,Component, Inject, inject, OnInit } from '@angular/core';
 import { ServiceRequest } from '@models/service-request.model';
 import { ServiceRequestService } from '@services/service-request';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -16,18 +16,20 @@ export class ServiceRequestList implements OnInit {
   error: string | null = null;
 
   constructor(
-    @Inject(ServiceRequestService) private requestService: ServiceRequestService) {}
+    @Inject(ServiceRequestService) private requestService: ServiceRequestService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.requestService.getAllRequests().subscribe({
       next: (data) => {
         this.requests = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = "Erreur lors du chargement des demandes.";
         this.loading = false;
         console.error(err);
+        this.cdr.detectChanges();
       }
     });
   }

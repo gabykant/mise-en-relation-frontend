@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { Artisan } from '@models/artisan.model';
@@ -18,14 +18,22 @@ export class ArtisanList implements OnInit {
 
   constructor(
     @Inject(ArtisanService) private artisanService: ArtisanService, 
-    private router: Router) {
+    private router: Router, private cdr: ChangeDetectorRef) {
       
     }
 
   ngOnInit(): void {
-    this.artisanService.getAllArtisans().subscribe(data => {
-      this.artisans = data;
-      this.loading = false;
+    this.artisanService.getAllArtisans().subscribe({
+      next: (data) => {
+        this.artisans = data;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.log(err);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
     });
   }
 
