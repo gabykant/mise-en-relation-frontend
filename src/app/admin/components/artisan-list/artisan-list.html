@@ -8,25 +8,27 @@
   </div>
 
   <div class="bg-white shadow rounded-lg overflow-hidden">
-    <table class="w-full text-left">
-      <thead class="bg-gray-50 border-b">
-        <tr>
-          <th class="px-6 py-3 text-sm font-semibold text-gray-600">Nom complet</th>
-          <th class="px-6 py-3 text-sm font-semibold text-gray-600">Numéro WhatsApp</th>
-          <th class="px-6 py-3 text-sm font-semibold text-gray-600">Profession</th>
-          <th class="px-6 py-3 text-sm font-semibold text-gray-600">Zone</th>
-          <th class="px-6 py-3 text-sm font-semibold text-gray-600">Statut</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y">
-        <tr *ngFor="let a of artisans" class="hover:bg-gray-50">
-          <td class="px-6 py-4">{{ a.firstName }} {{ a.lastName }}</td>
-            <td class="px-6 py-4">{{ a.phone_number }}</td>
-          <td class="px-6 py-4">{{ a.profession }}</td>
-          <td class="px-6 py-4">{{ a.zone }}</td>
-          <td class="px-6 py-4">{{ a.verified }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead class="bg-gray-50 border-b">
+          <tr>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Nom complet</th>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Numéro WhatsApp</th>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Profession</th>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Zone</th>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Statut</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr *ngFor="let a of artisans" class="hover:bg-gray-50">
+            <td class="px-6 py-4">{{ a.firstName }} {{ a.lastName }}</td>
+              <td class="px-6 py-4">{{ a.phone_number }}</td>
+            <td class="px-6 py-4">{{ a.profession }}</td>
+            <td class="px-6 py-4">{{ a.zone }}</td>
+            <td class="px-6 py-4">{{ a.verified }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

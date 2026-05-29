@@ -1,25 +1,27 @@
-<div class="min-h-screen flex bg-gray-50">
-  <aside class="w-64 bg-slate-900 text-white flex flex-col">
-    <div class="p-6 text-xl font-bold border-b border-slate-800">Artisan Admin</div>
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
+  
+  <header class="md:hidden bg-white p-4 flex justify-between items-center shadow-sm">
+    <div class="font-bold text-lg">Artisan Admin</div>
+    <button (click)="isMenuOpen = !isMenuOpen" class="p-2 text-gray-600">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </header>
+
+  <aside [class.hidden]="!isMenuOpen" class="md:flex w-full md:w-64 bg-slate-900 text-white flex-col">
+    <div class="p-6 text-xl font-bold border-b border-slate-800 hidden md:block">Artisan Admin</div>
     <nav class="flex-1 p-4 space-y-2">
-      <a routerLink="/admin/requests" routerLinkActive="bg-blue-600" class="block px-4 py-2 rounded text-gray-300 hover:bg-slate-800">Commandes</a>
-      <a routerLink="/admin/artisans" routerLinkActive="bg-blue-600" class="block px-4 py-2 rounded text-gray-300 hover:bg-slate-800">Artisans</a>
+      <a routerLink="/admin/requests" (click)="isMenuOpen = false" routerLinkActive="bg-blue-600" class="block px-4 py-2 rounded text-gray-300 hover:bg-slate-800">Commandes</a>
+      <a routerLink="/admin/artisans" (click)="isMenuOpen = false" routerLinkActive="bg-blue-600" class="block px-4 py-2 rounded text-gray-300 hover:bg-slate-800">Artisans</a>
     </nav>
   </aside>
 
   <main class="flex-1 flex flex-col">
-    <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center">
+    <header class="hidden md:flex bg-white shadow-sm px-8 py-4 justify-between items-center">
       <h2 class="text-lg font-semibold text-gray-700">Dashboard</h2>
-      <div class="flex items-center space-x-4">
-        <span class="text-sm text-gray-600 font-medium">Admin User</span>
-        <button (click)="logout()" class="flex items-center text-red-600 hover:text-red-800 transition">
-          <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-          Déconnexion
-        </button>
-      </div>
+      <button (click)="logout()" class="text-red-600">Déconnexion</button>
     </header>
-
-    <div class="p-8">
+    
+    <div class="p-4 md:p-8">
       <router-outlet></router-outlet>
     </div>
   </main>

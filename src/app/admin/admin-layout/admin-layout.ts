@@ -10,6 +10,9 @@ import { Auth } from '@core/services/auth';
   styleUrl: './admin-layout.css',
 })
 export class AdminLayout {
+
+  isMenuOpen = false;
+  
   constructor(private router: Router, @Inject(Auth) private auth: Auth) {}
 
   logout() {
