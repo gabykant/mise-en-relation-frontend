@@ -79,8 +79,8 @@ export class ArtisanCreate {
         firstName: this.artisanForm.value.firstName,
         lastName: this.artisanForm.value.lastName,
         phoneNumber: this.artisanForm.value.phoneNumber,
-        professionId: this.selectedProfessionId,
-        zoneId: this.selectedZoneId
+        profession: this.selectedProfessionId,
+        zone: this.selectedZoneId
       };
       
       this.artisanService.registerArtisan(payload).subscribe({
