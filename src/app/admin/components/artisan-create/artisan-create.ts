@@ -5,6 +5,16 @@ import { Router } from '@angular/router';
 // import { PROFESSIONS, ZONES } from '@core/constants/constants';
 import { CommonModule } from '@angular/common';
 
+interface Profession {
+  id: string;
+  displayName: string;
+}
+
+interface Zone {
+  id: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-artisan-create',
   imports: [ReactiveFormsModule, CommonModule],
@@ -16,16 +26,16 @@ export class ArtisanCreate {
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
-  professions: Item[] = []; // Initialisé par l'appel API
-  zones: Item[] = [];
+  professions: Profession[] = []; // Initialisé par l'appel API
+  zones: Zone[] = [];
 
   // Listes filtrées pour l'affichage
-  filteredProfessions: Item[] = [];
-  filteredZones: Item[] = [];
+  filteredProfessions: Profession[] = [];
+  filteredZones: Zone[] = [];
 
   // Variables pour stocker les IDs sélectionnés
-  private selectedProfessionId: number | null = null;
-  private selectedZoneId: number | null = null;
+  private selectedProfessionId: string | null = null;
+  private selectedZoneId: string | null = null;
 
   showProfessionList = false;
   showZoneList = false;
@@ -95,21 +105,23 @@ export class ArtisanCreate {
   filterList(type: 'profession' | 'zone', event: any) {
     const value = event.target.value.toLowerCase();
     if (type === 'profession') {
-      this.filteredProfessions = this.professions.filter(p => p.name.toLowerCase().includes(value));
+      this.filteredProfessions = this.professions.filter(p => p.displayName.toLowerCase().includes(value));
     } else {
       this.filteredZones = this.zones.filter(z => z.name.toLowerCase().includes(value));
       this.showZoneList = true;
     }
   }
 
-  selectItem(type: 'profession' | 'zone', item: Item) {
+  selectItem(type: 'profession' | 'zone', item: any) {
     if (type === 'profession') {
-      this.selectedProfessionId = item.id;
-      this.artisanForm.patchValue({ profession: item.name });
+      const prod = item as Profession;
+      this.selectedProfessionId = prod.id;
+      this.artisanForm.patchValue({ profession: item.displayName });
       this.showProfessionList = false;
     } else {
-      this.selectedZoneId = item.id;
-      this.artisanForm.patchValue({ zone: item.name });
+      const z = item as Zone;
+      this.selectedZoneId = z.id;
+      this.artisanForm.patchValue({ zone: z.name });
       this.showZoneList = false;
     }
   }
