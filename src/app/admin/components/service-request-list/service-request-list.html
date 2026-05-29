@@ -4,34 +4,41 @@
   <div *ngIf="loading">Chargement en cours...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
-  <table class="w-full text-left border-collapse bg-white rounded-lg shadow-sm overflow-hidden">
-  <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
-    <tr>
-      <!-- <th class="px-6 py-4">ID</th> -->
-      <th class="px-6 py-4">Service</th>
-      <th class="px-6 py-4">Client</th>
-      <th class="px-6 py-4">Description</th>
-      <th class="px-6 py-4">Artisan</th>
-      <th class="px-6 py-4">Lieu</th>
-      <th class="px-6 py-4">Statut</th>
-      <th class="px-6 py-4">Date</th>
-    </tr>
-  </thead>
-  <tbody class="divide-y divide-gray-200">
-    <tr *ngFor="let req of requests" class="hover:bg-gray-50 transition-colors">
-      <!-- <td class="px-6 py-4 text-sm text-gray-700">{{ req.id }}</td> -->
-      <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ req.serviceName }}</td>
-      <td class="px-6 py-4 text-sm text-gray-700">{{ req.clientPhone }}</td>
-      <td class="px-6 py-4 text-sm text-gray-700">{{ req.description }}</td>
-      <td class="px-6 py-4 text-sm text-gray-700">{{ req.artisanName }}</td>
-      <td class="px-6 py-4 text-sm text-gray-700">{{ req.zoneName }}</td>
-      <td class="px-6 py-4">
-        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-          {{ req.status }}
-        </span>
-      </td>
-      <td class="px-6 py-4 text-sm text-gray-700">{{ req.createdAt | date:'short' }}</td>
-    </tr>
-  </tbody>
-</table>
+  <div class="bg-white shadow rounded-lg overflow-hidden border border-gray-200">
+    <div class="overflow-x-auto">
+
+      <table class="w-full text-left min-w-[700px]" *ngIf="!loading && !error">
+        <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
+          <tr>
+            <!-- <th class="px-6 py-4">ID</th> -->
+            <th class="px-6 py-4">Service</th>
+            <th class="px-6 py-4">Client</th>
+            <th class="px-6 py-4">Description</th>
+            <th class="px-6 py-4">Artisan</th>
+            <th class="px-6 py-4">Lieu</th>
+            <th class="px-6 py-4">Statut</th>
+            <th class="px-6 py-4">Date</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let req of requests" class="hover:bg-gray-50 transition-colors">
+            <!-- <td class="px-6 py-4 text-sm text-gray-700">{{ req.id }}</td> -->
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ req.serviceName }}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">{{ req.clientPhone }}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">{{ req.description }}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">{{ req.artisanName }}</td>
+            <td class="px-6 py-4 text-sm text-gray-700">{{ req.zoneName }}</td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                {{ req.status }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">{{ req.createdAt | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  
 </div>
