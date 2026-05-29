@@ -1,12 +1,12 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ServiceRequest } from '@models/service-request.model';
 import { ServiceRequestService } from '@services/service-request';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-service-request-list',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, CommonModule],
   templateUrl: './service-request-list.html',
   styleUrl: './service-request-list.css',
 })
