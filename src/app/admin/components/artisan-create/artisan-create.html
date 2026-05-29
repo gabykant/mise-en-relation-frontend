@@ -37,7 +37,7 @@
       <div *ngFor="let p of filteredProfessions" 
            (mousedown)="selectItem('profession', p)"
            class="p-2 hover:bg-blue-100 cursor-pointer">
-        {{ p }}
+        {{ p.name }}
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
       <div *ngFor="let z of filteredZones" 
            (mousedown)="selectItem('zone', z)"
            class="p-2 hover:bg-blue-100 cursor-pointer">
-        {{ z }}
+        {{ z.name }}
       </div>
     </div>
   </div>

@@ -29,4 +29,13 @@ private apiUrl = `${environment.apiUrl}/api/v1/admin/artisans`;
   registerArtisan(data: any): Observable<void> {
     return this.http.post<void>(this.apiUrl, data, { headers: this.getHeaders() });
   }
+
+  // artisan.service.ts
+  getProfessions(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/v1/professions`);
+  }
+
+  getZones(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/v1/zones`);
+  }
 }
