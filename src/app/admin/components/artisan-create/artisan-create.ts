@@ -32,7 +32,10 @@ export class ArtisanCreate {
     this.artisanForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [
+        Validators.required, 
+        Validators.pattern('^\\+?[1-9]\\d{8,14}$') 
+      ]],
       profession: ['', Validators.required],
       zone: ['', Validators.required]
     });
