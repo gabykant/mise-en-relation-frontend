@@ -2,11 +2,14 @@ import { ChangeDetectorRef,Component, Inject, inject, OnInit } from '@angular/co
 import { ServiceRequest } from '@models/service-request.model';
 import { ServiceRequestService } from '@services/service-request';
 import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from 'src/app/pipes/filter-pipe';
+
 
 @Component({
   selector: 'app-service-request-list',
   standalone: true,
-  imports: [DatePipe, CommonModule],
+  imports: [DatePipe, CommonModule, FormsModule, FilterPipe],
   templateUrl: './service-request-list.html',
   styleUrl: './service-request-list.css',
 })
@@ -14,6 +17,9 @@ export class ServiceRequestList implements OnInit {
   requests: ServiceRequest[] = [];
   loading = true;
   error: string | null = null;
+  searchText: string = '';
+  p: number = 1;
+  pageSize: number = 5;
 
   constructor(
     @Inject(ServiceRequestService) private requestService: ServiceRequestService, private cdr: ChangeDetectorRef) {}
