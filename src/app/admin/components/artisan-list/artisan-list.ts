@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { Artisan } from '@models/artisan.model';
 import { ArtisanService } from '@services/artisan';
+import { FilterPipe } from 'src/app/pipes/filter-pipe';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-artisan-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule, FilterPipe],
   templateUrl: './artisan-list.html',
   styleUrl: './artisan-list.css',
 })
 export class ArtisanList implements OnInit {
   artisans: Artisan[] = [];
   loading = true;
+  searchText: string = '';
+  p: number = 1;
+  pageSize: number = 5;
+
 
   constructor(
     @Inject(ArtisanService) private artisanService: ArtisanService, 
