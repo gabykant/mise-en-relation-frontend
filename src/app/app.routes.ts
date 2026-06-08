@@ -5,6 +5,7 @@ import { ServiceRequestList } from './admin/components/service-request-list/serv
 import { AdminLayout } from './admin/admin-layout/admin-layout';
 import { ArtisanList } from './admin/components/artisan-list/artisan-list';
 import { ArtisanCreate } from './admin/components/artisan-create/artisan-create';
+import { ArtisanEdit } from './components/artisan-edit/artisan-edit';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -16,6 +17,7 @@ export const routes: Routes = [
             { path: 'requests', component: ServiceRequestList },
             { path: 'artisans', component: ArtisanList },
             { path: 'artisans/create', component: ArtisanCreate },
+            { path: 'artisans/edit/:id', component: ArtisanEdit },
             { path: '', redirectTo: 'requests', pathMatch: 'full' }
         ]
     },

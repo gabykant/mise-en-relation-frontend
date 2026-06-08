@@ -24,15 +24,23 @@
             <th class="px-6 py-3 text-sm font-semibold text-gray-600">Profession</th>
             <th class="px-6 py-3 text-sm font-semibold text-gray-600">Zone</th>
             <th class="px-6 py-3 text-sm font-semibold text-gray-600">Statut</th>
+            <th class="px-6 py-3 text-sm font-semibold text-gray-600">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y">
-          <tr *ngFor="let a of (artisans | filterPipe: searchText | slice: (p - 1) * pageSize: (p - 1) * pageSize + pageSize)" class="hover:bg-gray-50">
+          <tr *ngFor="let a of (artisans | filterPipe: searchText | slice: (p - 1) * pageSize: (p - 1) * pageSize + pageSize)" (click)="editArtisan(a)" class="hover:bg-gray-50">
             <td class="px-6 py-4">{{ a.firstName }} {{ a.lastName }}</td>
             <td class="px-6 py-4">{{ a.phone_number }}</td>
             <td class="px-6 py-4">{{ a.profession }}</td>
             <td class="px-6 py-4">{{ a.zone }}</td>
             <td class="px-6 py-4">{{ a.verified }}</td>
+            <td class="px-6 py-4">
+              <button (click)="$event.stopPropagation(); editArtisan(a.id)" class="text-blue-600 hover:text-blue-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

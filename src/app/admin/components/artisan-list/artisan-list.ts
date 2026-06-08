@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Artisan } from '@models/artisan.model';
 import { ArtisanService } from '@services/artisan';
 import { FilterPipe } from 'src/app/pipes/filter-pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -20,11 +20,14 @@ export class ArtisanList implements OnInit {
   searchText: string = '';
   p: number = 1;
   pageSize: number = 5;
+  // artisanForm: FormGroup;
 
 
   constructor(
     @Inject(ArtisanService) private artisanService: ArtisanService, 
-    private router: Router, private cdr: ChangeDetectorRef) {
+    private router: Router, 
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef) {
       
     }
 
@@ -45,5 +48,9 @@ export class ArtisanList implements OnInit {
 
   goToCreate() {
     this.router.navigate(['/admin/artisans/create']);
+  }
+
+  editArtisan(artisan: Artisan) {
+    this.router.navigate(['/admin/artisans/edit', artisan.id]);
   }
 }

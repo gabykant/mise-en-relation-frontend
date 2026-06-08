@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Auth } from '@core/services/auth';
 import { Artisan } from '@models/artisan.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
+import { HttpEvent } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +38,30 @@ private apiUrl = `${environment.apiUrl}/api/v1/admin/artisans`;
 
   getZones(): Observable<any[]> {
     return this.http.get<any[]>(`${environment.apiUrl}/api/v1/zones`);
+  }
+
+  // Récupérer un artisan par son ID
+  getById(id: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/v1/admin/artisan/update/${id}`);
+  }
+
+  // Mettre à jour l'artisan
+  update(id: string, artisanData: any): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/api/v1/admin/artisan/update/${id}`, artisanData);
+  }
+
+  uploadAvatar(id: string, file: File): Observable<HttpEvent<any>> {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    return this.http.post(`${environment.apiUrl}/api/v1/admin/artisan/${id}/avatar`, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  getAvatarUrl(filename: string): string {
+    if (!filename) return 'assets/images/default.png';
+    return `${environment.apiUrl}/api/v1/admin/uploads/avatars/${filename}`;
   }
 }

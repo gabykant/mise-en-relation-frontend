@@ -5,16 +5,6 @@ import { Router } from '@angular/router';
 // import { PROFESSIONS, ZONES } from '@core/constants/constants';
 import { CommonModule } from '@angular/common';
 
-interface Profession {
-  id: string;
-  displayName: string;
-}
-
-interface Zone {
-  id: string;
-  name: string;
-}
-
 @Component({
   selector: 'app-artisan-create',
   imports: [ReactiveFormsModule, CommonModule],
