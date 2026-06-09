@@ -21,14 +21,12 @@ export const routes: Routes = [
             { path: '', redirectTo: 'requests', pathMatch: 'full' }
         ]
     },
-    { 
-        path: '', 
-        canActivate: [authGuard],
-        children: [
-            // { path: 'artisans', component: ArtisanListComponent },
-            // { path: 'requests', component: RequestListComponent },
-            { path: '', redirectTo: 'requests', pathMatch: 'full' }
-        ]
-    },
-    { path: '**', redirectTo: 'login', pathMatch: 'full' }
+    // { 
+    //     path: '', 
+    //     canActivate: [authGuard],
+    //     children: [
+    //         { path: '', redirectTo: 'requests', pathMatch: 'full' }
+    //     ]
+    // },
+    { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
