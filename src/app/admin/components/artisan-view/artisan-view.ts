@@ -35,7 +35,7 @@ export class ArtisanView implements OnInit {
   }
 
   loadArtisanData(artisanId: string) {
-    this.artisanService.getById(artisanId).subscribe({
+    this.artisanService.artisanProfile(artisanId).subscribe({
       next: (data) => {
         console.log("Artisan data loaded", data);
         this.artisan = data;

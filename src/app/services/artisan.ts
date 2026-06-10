@@ -65,6 +65,10 @@ private apiUrl = `${environment.apiUrl}/api/v1/admin/artisans`;
     return `${environment.apiUrl}/api/v1/admin/uploads/avatars/${filename}`;
   }
 
+  artisanProfile(id: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/v1/admin/artisan/profile/${id}`);
+  }
+
   getMissionsByArtisanId(artisanId: string): Observable<any[]> {
     return this.http.get<any[]>(`${environment.apiUrl}/api/v1/admin/missions/${artisanId}`, { headers: this.getHeaders() });
   }
