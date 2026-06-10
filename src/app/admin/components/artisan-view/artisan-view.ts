@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ArtisanService } from '@services/artisan';
 import { Artisan } from '@models/artisan.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class ArtisanView implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private artisanService: ArtisanService
+    private artisanService: ArtisanService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -35,7 +37,9 @@ export class ArtisanView implements OnInit {
   loadArtisanData(artisanId: string) {
     this.artisanService.getById(artisanId).subscribe({
       next: (data) => {
+        console.log("Artisan data loaded", data);
         this.artisan = data;
+        this.cdr.detectChanges();
       },
       error: (err) => console.error("Erreur chargement artisan", err)
     });
@@ -48,10 +52,12 @@ export class ArtisanView implements OnInit {
       next: (interventions) => {
         this.artisanInterventions = interventions;
         this.isLoadingInterventions = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("Erreur chargement interventions", err);
         this.isLoadingInterventions = false;
+        this.cdr.detectChanges();
       }
     });
   }
