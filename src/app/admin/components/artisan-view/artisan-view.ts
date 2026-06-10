@@ -31,9 +31,9 @@ export class ArtisanView {
       this.artisan = data;
       
       // Tri par date décroissante
-      this.artisanInterventions = data.interventions.sort((a, b) => 
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      );
+      // this.artisanInterventions = data.interventions.sort((a, b) => 
+      //   new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      // );
     });
   }
 }
