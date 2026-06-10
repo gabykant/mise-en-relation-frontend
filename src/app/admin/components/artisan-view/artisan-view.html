@@ -1,0 +1,47 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 border-b pb-6">
+    <div class="flex justify-center items-start">
+      <img [src]="artisan.photoUrl || 'assets/default-avatar.png'" class="w-32 h-32 rounded-full object-cover border-2">
+    </div>
+
+    <div class="space-y-2">
+      <h2 class="text-xl font-bold">{{ artisan.firstName }} {{ artisan.lastName }}</h2>
+      <p class="text-gray-600">📞 {{ artisan.phone_number }}</p>
+      <p class="text-gray-600">🛠️ {{ artisan.profession }}</p>
+      <p class="text-gray-600">📍 {{ artisan.zone }}</p>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-2">🎓 Diplômes</h3>
+      <ul class="text-sm text-gray-700">
+        <li *ngFor="let d of artisan.diplomes" class="mb-1">
+          {{ d.name }} <span class="text-gray-400">({{ d.startDate | date:'yyyy' }} - {{ d.endDate | date:'yyyy' }})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-bold mb-4">📜 Historique des interventions</h3>
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="p-3">Service</th>
+          <th class="p-3">Statut</th>
+          <th class="p-3">Date mise à jour</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let op of artisanInterventions" class="border-t hover:bg-gray-50">
+          <td class="p-3">{{ op.requestDescription }}</td>
+          <td class="p-3">
+            <span [class]="'px-2 py-1 rounded text-xs ' + (op.status === 'ACCEPTED' ? 'bg-green-100 text-green-800' : 'bg-gray-100')">
+              {{ op.status }}
+            </span>
+          </td>
+          <td class="p-3">{{ op.updatedAt | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

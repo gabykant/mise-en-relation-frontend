@@ -28,16 +28,24 @@
           </tr>
         </thead>
         <tbody class="divide-y">
-          <tr *ngFor="let a of (artisans | filterPipe: searchText | slice: (p - 1) * pageSize: (p - 1) * pageSize + pageSize)" (click)="editArtisan(a)" class="hover:bg-gray-50">
+          <!-- <tr *ngFor="let a of (artisans | filterPipe: searchText | slice: (p - 1) * pageSize: (p - 1) * pageSize + pageSize)" (click)="editArtisan(a)" class="hover:bg-gray-50"> -->
+          <tr *ngFor="let a of (artisans | filterPipe: searchText | slice: (p - 1) * pageSize: (p - 1) * pageSize + pageSize)" class="hover:bg-gray-50">
             <td class="px-6 py-4">{{ a.firstName }} {{ a.lastName }}</td>
             <td class="px-6 py-4">{{ a.phone_number }}</td>
             <td class="px-6 py-4">{{ a.profession }}</td>
             <td class="px-6 py-4">{{ a.zone }}</td>
             <td class="px-6 py-4">{{ a.verified }}</td>
             <td class="px-6 py-4">
-              <button (click)="$event.stopPropagation(); editArtisan(a.id)" class="text-blue-600 hover:text-blue-900">
+              <button (click)="$event.stopPropagation(); editArtisan(a)" class="text-blue-600 hover:text-blue-900">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </button>
+
+              <button (click)="$event.stopPropagation(); viewArtisan(a)" class="text-green-600 hover:text-green-900 ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.22 8.024 4 13 4c4.978 0 9.27 3.223 10.542 8-1.272 4.777-5.564 8-10.542 8-4.978 0-9.27-3.223-10.542-8z" />
                 </svg>
               </button>
             </td>

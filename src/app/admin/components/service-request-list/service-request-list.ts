@@ -19,7 +19,7 @@ export class ServiceRequestList implements OnInit {
   error: string | null = null;
   searchText: string = '';
   p: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
 
   constructor(
     @Inject(ServiceRequestService) private requestService: ServiceRequestService, private cdr: ChangeDetectorRef) {}

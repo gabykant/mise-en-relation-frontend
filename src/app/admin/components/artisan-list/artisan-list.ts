@@ -53,4 +53,8 @@ export class ArtisanList implements OnInit {
   editArtisan(artisan: Artisan) {
     this.router.navigate(['/admin/artisans/edit', artisan.id]);
   }
+
+  viewArtisan(artisan: Artisan) {
+    this.router.navigate(['/admin/artisans/view', artisan.id]);
+  }
 }
