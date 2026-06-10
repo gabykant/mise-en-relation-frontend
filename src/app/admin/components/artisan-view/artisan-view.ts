@@ -27,6 +27,8 @@ export class ArtisanView implements OnInit {
     const artisanId = this.route.snapshot.paramMap.get('id');
     if (artisanId) {
       this.loadArtisanData(artisanId);
+
+      this.loadInterventions(artisanId);
     }
   }
 
