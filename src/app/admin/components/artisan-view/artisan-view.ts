@@ -61,4 +61,8 @@ export class ArtisanView implements OnInit {
       }
     });
   }
+
+  getAvatarUrl(filename: string): string {
+    return this.artisanService.getAvatarUrl(filename);
+  }
 }

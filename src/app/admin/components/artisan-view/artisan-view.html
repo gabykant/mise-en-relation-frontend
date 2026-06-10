@@ -2,7 +2,7 @@
   
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 border-b pb-6">
     <div class="flex justify-center items-start">
-      <img [src]="artisan.photo_url || 'assets/default-avatar.png'" 
+      <img [src]="getAvatarUrl(artisan.photo_url)" 
            class="w-32 h-32 rounded-full object-cover border-2 border-gray-200" 
            alt="Photo de l'artisan">
     </div>
