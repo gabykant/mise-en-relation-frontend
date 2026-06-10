@@ -8,4 +8,12 @@ export interface Artisan {
   status: 'ACTIVE' | 'INACTIVE';
   verified: boolean;
   createdAt: string;
+  photoUrl: string;
+  diplomas: Diploma[];
+}
+
+interface Diploma {
+  name: string;
+  startDate: string;
+  endDate: string;
 }

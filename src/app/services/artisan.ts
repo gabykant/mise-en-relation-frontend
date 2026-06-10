@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { getModuleFactory, Injectable } from '@angular/core';
 import { Auth } from '@core/services/auth';
 import { Artisan } from '@models/artisan.model';
 import { Observable } from 'rxjs/internal/Observable';
@@ -63,5 +63,9 @@ private apiUrl = `${environment.apiUrl}/api/v1/admin/artisans`;
   getAvatarUrl(filename: string): string {
     if (!filename) return 'assets/images/default.png';
     return `${environment.apiUrl}/api/v1/admin/uploads/avatars/${filename}`;
+  }
+
+  getMissionsByArtisanId(artisanId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/v1/admin/missions/${artisanId}`, { headers: this.getHeaders() });
   }
 }

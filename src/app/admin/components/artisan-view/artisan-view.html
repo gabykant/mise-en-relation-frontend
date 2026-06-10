@@ -1,47 +1,96 @@
-<div class="p-6 bg-white rounded-lg shadow-md">
+<div class="p-6 bg-white rounded-lg shadow-md" *ngIf="artisan; else loadingArtisan">
+  
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 border-b pb-6">
     <div class="flex justify-center items-start">
-      <img [src]="artisan.photoUrl || 'assets/default-avatar.png'" class="w-32 h-32 rounded-full object-cover border-2">
+      <img [src]="artisan.photoUrl || 'assets/default-avatar.png'" 
+           class="w-32 h-32 rounded-full object-cover border-2 border-gray-200" 
+           alt="Photo de l'artisan">
     </div>
 
     <div class="space-y-2">
-      <h2 class="text-xl font-bold">{{ artisan.firstName }} {{ artisan.lastName }}</h2>
-      <p class="text-gray-600">📞 {{ artisan.phone_number }}</p>
-      <p class="text-gray-600">🛠️ {{ artisan.profession }}</p>
-      <p class="text-gray-600">📍 {{ artisan.zone }}</p>
+      <h2 class="text-xl font-bold text-gray-800">{{ artisan.firstName }} {{ artisan.lastName }}</h2>
+      <p class="text-gray-600">📞 <span class="font-medium">{{ artisan.phone_number }}</span></p>
+      <p class="text-gray-600">🛠️ <span class="font-medium">{{ artisan.profession }}</span></p>
+      <p class="text-gray-600">📍 <span class="font-medium">{{ artisan.zone }}</span></p>
     </div>
 
     <div>
-      <h3 class="font-semibold mb-2">🎓 Diplômes</h3>
-      <ul class="text-sm text-gray-700">
-        <li *ngFor="let d of artisan.diplomes" class="mb-1">
-          {{ d.name }} <span class="text-gray-400">({{ d.startDate | date:'yyyy' }} - {{ d.endDate | date:'yyyy' }})</span>
+      <h3 class="font-semibold text-gray-800 mb-2">🎓 Diplômes</h3>
+      <ul class="text-sm text-gray-700 space-y-1" *ngIf="artisan.diplomas && artisan.diplomas.length > 0; else noDiplomas">
+        <li *ngFor="let d of artisan.diplomas" class="bg-gray-50 p-2 rounded border border-gray-100">
+          <div class="font-medium">{{ d.name }}</div>
+          <div class="text-xs text-gray-400">
+            {{ d.startDate | date:'yyyy' }} - {{ d.endDate | date:'yyyy' }}
+          </div>
         </li>
       </ul>
+      <ng-template #noDiplomas>
+        <p class="text-sm text-gray-400 italic">Aucun diplôme enregistré.</p>
+      </ng-template>
     </div>
   </div>
 
   <div>
-    <h3 class="text-lg font-bold mb-4">📜 Historique des interventions</h3>
-    <table class="w-full text-left border-collapse">
-      <thead>
-        <tr class="bg-gray-100">
-          <th class="p-3">Service</th>
-          <th class="p-3">Statut</th>
-          <th class="p-3">Date mise à jour</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let op of artisanInterventions" class="border-t hover:bg-gray-50">
-          <td class="p-3">{{ op.requestDescription }}</td>
-          <td class="p-3">
-            <span [class]="'px-2 py-1 rounded text-xs ' + (op.status === 'ACCEPTED' ? 'bg-green-100 text-green-800' : 'bg-gray-100')">
-              {{ op.status }}
-            </span>
-          </td>
-          <td class="p-3">{{ op.updatedAt | date:'dd/MM/yyyy HH:mm' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 class="text-lg font-bold text-gray-800 mb-4">📜 Historique des interventions acceptées</h3>
+    
+    <div class="overflow-x-auto rounded-lg border border-gray-200" *ngIf="!isLoadingInterventions; else loadingTable">
+      <table class="w-full text-left border-collapse" *ngIf="artisanInterventions.length > 0; else noInterventions">
+        <thead>
+          <tr class="bg-gray-50 text-gray-700 font-semibold text-sm border-b border-gray-200">
+            <th class="p-3">Métier / Zone</th>
+            <th class="p-3">Description du Besoin</th>
+            <th class="p-3">Détails de l'Offre</th>
+            <th class="p-3">Prix</th>
+            <th class="p-3 text-center">Statut</th>
+            <th class="p-3">Dernière mise à jour</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm text-gray-600 divide-y divide-gray-100">
+          <tr *ngFor="let op of artisanInterventions" class="hover:bg-gray-50 transition-colors">
+            <td class="p-3 whitespace-nowrap">
+              <span class="font-semibold text-gray-800 block">{{ op.professionName }}</span>
+              <span class="text-xs text-gray-400">📍 {{ op.zoneName }}</span>
+            </td>
+            <td class="p-3 max-w-xs truncate" [title]="op.description">
+              {{ op.description }}
+            </td>
+            <td class="p-3 max-w-xs italic text-gray-500" [title]="op.offerDescription">
+              {{ op.offerDescription || 'Pas de commentaire' }}
+            </td>
+            <td class="p-3 font-semibold text-gray-900 whitespace-nowrap">
+              {{ op.amount | currency:'XAF':'symbol':'1.0-0' }}
+            </td>
+            <td class="p-3 text-center whitespace-nowrap">
+              <span [class]="'px-2 py-1 rounded-full text-xs font-medium ' + 
+                (op.status === 'ACCEPTED' ? 'bg-green-100 text-green-800' : 
+                 op.status === 'RESOLVED' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800')">
+                {{ op.status }}
+              </span>
+            </td>
+            <td class="p-3 whitespace-nowrap text-gray-400">
+              {{ op.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <ng-template #noInterventions>
+        <div class="p-8 text-center text-gray-400 italic bg-gray-50">
+          Aucune intervention acceptée pour le moment.
+        </div>
+      </ng-template>
+    </div>
+
+    <ng-template #loadingTable>
+      <div class="flex justify-center p-8">
+        <span class="text-gray-400 animate-pulse">Chargement de l'historique...</span>
+      </div>
+    </ng-template>
   </div>
 </div>
+
+<ng-template #loadingArtisan>
+  <div class="flex justify-center items-center h-48">
+    <div class="text-lg text-gray-500 animate-bounce">Chargement du profil de l'artisan...</div>
+  </div>
+</ng-template>
