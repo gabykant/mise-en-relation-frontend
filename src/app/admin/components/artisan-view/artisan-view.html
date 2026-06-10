@@ -2,14 +2,14 @@
   
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 border-b pb-6">
     <div class="flex justify-center items-start">
-      <img [src]="artisan.photoUrl || 'assets/default-avatar.png'" 
+      <img [src]="artisan.photo_url || 'assets/default-avatar.png'" 
            class="w-32 h-32 rounded-full object-cover border-2 border-gray-200" 
            alt="Photo de l'artisan">
     </div>
 
     <div class="space-y-2">
       <h2 class="text-xl font-bold text-gray-800">{{ artisan.firstName }} {{ artisan.lastName }}</h2>
-      <p class="text-gray-600">📞 <span class="font-medium">{{ artisan.phone_number }}</span></p>
+      <p class="text-gray-600">📞 <span class="font-medium">{{ artisan.phoneNumber }}</span></p>
       <p class="text-gray-600">🛠️ <span class="font-medium">{{ artisan.profession }}</span></p>
       <p class="text-gray-600">📍 <span class="font-medium">{{ artisan.zone }}</span></p>
     </div>
@@ -58,7 +58,7 @@
               {{ op.offerDescription || 'Pas de commentaire' }}
             </td>
             <td class="p-3 font-semibold text-gray-900 whitespace-nowrap">
-              {{ op.amount | currency:'XAF':'symbol':'1.0-0' }}
+              {{ op.price | currency:'XAF':'symbol':'1.0-0' }}
             </td>
             <td class="p-3 text-center whitespace-nowrap">
               <span [class]="'px-2 py-1 rounded-full text-xs font-medium ' + 

@@ -3,12 +3,13 @@ export interface Artisan {
   firstName: string;
   lastName: string;
   phone_number: string;
+  phoneNumber: string;
   profession: string;
   zone: string;
   status: 'ACTIVE' | 'INACTIVE';
   verified: boolean;
   createdAt: string;
-  photoUrl: string;
+  photo_url: string;
   diplomas: Diploma[];
 }
 
