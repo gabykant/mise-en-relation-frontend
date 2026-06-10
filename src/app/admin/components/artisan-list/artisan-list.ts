@@ -19,7 +19,7 @@ export class ArtisanList implements OnInit {
   loading = true;
   searchText: string = '';
   p: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   // artisanForm: FormGroup;
 
 
