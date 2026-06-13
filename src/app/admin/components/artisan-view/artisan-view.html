@@ -18,9 +18,9 @@
       <h3 class="font-semibold text-gray-800 mb-2">🎓 Diplômes</h3>
       <ul class="text-sm text-gray-700 space-y-1" *ngIf="artisan.diplomas && artisan.diplomas.length > 0; else noDiplomas">
         <li *ngFor="let d of artisan.diplomas" class="bg-gray-50 p-2 rounded border border-gray-100">
-          <div class="font-medium">{{ d.name }}</div>
+          <div class="font-medium">{{ d.certificate_name }}</div>
           <div class="text-xs text-gray-400">
-            {{ d.startDate | date:'yyyy' }} - {{ d.endDate | date:'yyyy' }}
+            {{ d.start_date | date:'yyyy' }} - {{ d.end_date | date:'yyyy' }}
           </div>
         </li>
       </ul>

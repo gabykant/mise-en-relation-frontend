@@ -14,7 +14,7 @@ export interface Artisan {
 }
 
 interface Diploma {
-  name: string;
-  startDate: string;
-  endDate: string;
+  certificate_name: string;
+  start_date: string;
+  end_date: string;
 }

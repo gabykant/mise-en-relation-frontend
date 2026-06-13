@@ -39,6 +39,7 @@ export class ArtisanView implements OnInit {
       next: (data) => {
         console.log("Artisan data loaded", data);
         this.artisan = data;
+        console.log("Artisan data set", this.artisan?.diplomas);
         this.cdr.detectChanges();
       },
       error: (err) => console.error("Erreur chargement artisan", err)
