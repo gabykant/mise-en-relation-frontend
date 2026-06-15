@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { ArtisanService } from '@services/artisan';
-import { Router } from 'node_modules/@angular/router/types/_router_module-chunk';
+import { Router } from '@angular/router';
 import { FilterPipe } from 'src/app/pipes/filter-pipe';
 import { FormsModule, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
