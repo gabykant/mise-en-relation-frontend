@@ -7,6 +7,7 @@ import { ArtisanList } from './admin/components/artisan-list/artisan-list';
 import { ArtisanCreate } from './admin/components/artisan-create/artisan-create';
 import { ArtisanEdit } from './components/artisan-edit/artisan-edit';
 import { ArtisanView } from './admin/components/artisan-view/artisan-view';
+import { Zone } from './admin/metadata/zone/zone';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -17,6 +18,7 @@ export const routes: Routes = [
         children: [
             { path: 'requests', component: ServiceRequestList },
             { path: 'artisans', component: ArtisanList },
+            { path: 'areas', component: Zone },
             { path: 'artisans/create', component: ArtisanCreate },
             { path: 'artisans/edit/:id', component: ArtisanEdit },
             { path: 'artisans/view/:id', component: ArtisanView },
