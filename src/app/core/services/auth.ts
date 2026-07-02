@@ -14,6 +14,8 @@ export class Auth {
 
   login(token: string): Observable<any> {
     const url = `${environment.apiUrl}/api/v1/admin/ping`;
+
+    this.logout(); // Clear any existing token before attempting login
     
     return this.http.get(url, {
       headers: { 'X-Admin-Token': token }

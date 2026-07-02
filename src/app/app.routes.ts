@@ -10,7 +10,9 @@ import { ArtisanView } from './admin/components/artisan-view/artisan-view';
 import { Zone } from './admin/metadata/zone/zone';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login },
+    { path: 'logout', component: Login },
     {
         path: 'admin',
         component: AdminLayout,
@@ -32,5 +34,5 @@ export const routes: Routes = [
     //         { path: '', redirectTo: 'requests', pathMatch: 'full' }
     //     ]
     // },
-    { path: '', redirectTo: 'login', pathMatch: 'full' }
+    
 ];

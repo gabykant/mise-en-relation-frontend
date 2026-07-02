@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Auth } from '@core/services/auth';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   loginForm: FormGroup;
 
   constructor(
@@ -21,6 +21,14 @@ export class Login {
       this.loginForm = this.fb.group({
         token: ['', Validators.required]
       });
+  }
+
+  ngOnInit() {
+    // 1. Vérification au chargement de la page : l'utilisateur a-t-il déjà une session active ?
+    if (this.auth.isLoggedIn()) { 
+      console.log('Session active détectée, redirection automatique...');
+      this.router.navigate(['/admin/requests']);
+    }
   }
 
   login() {
@@ -38,5 +46,10 @@ export class Login {
         }
       });
     }
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }
