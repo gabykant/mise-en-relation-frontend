@@ -8,6 +8,7 @@ import { ArtisanCreate } from './admin/components/artisan-create/artisan-create'
 import { ArtisanEdit } from './components/artisan-edit/artisan-edit';
 import { ArtisanView } from './admin/components/artisan-view/artisan-view';
 import { Zone } from './admin/metadata/zone/zone';
+import { ClientList } from './admin/components/client-list/client-list';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             { path: 'requests', component: ServiceRequestList },
+            { path: 'clients', component: ClientList },
             { path: 'artisans', component: ArtisanList },
             { path: 'areas', component: Zone },
             { path: 'artisans/create', component: ArtisanCreate },
