@@ -1,0 +1,122 @@
+<div class="p-6 max-w-6xl mx-auto">
+  <!-- Fil d'Ariane & En-tête -->
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <a routerLink="/admin/clients" class="text-sm text-blue-600 hover:underline">← Retour à la liste des clients</a>
+      <h1 class="text-2xl font-bold text-gray-800 mt-1">Fiche Compte Client</h1>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-gray-500">Chargement des informations du client...</div>
+  <div *ngIf="error" class="bg-red-100 text-red-700 p-4 rounded mb-4">{{ error }}</div>
+
+  <div *ngIf="!loading && client" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- COLONNE 1 & 2 : Profil Client & Actions de Validation -->
+    <div class="md:col-span-2 space-y-6">
+
+      <!-- Carte Profil -->
+      <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <h2 class="text-lg font-semibold text-gray-800 border-b pb-3 mb-4">Profil Client</h2>
+        
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <span class="text-gray-500 block">Téléphone WhatsApp</span>
+            <span class="font-medium text-gray-900 text-base">{{ client.phoneNumber }}</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block">Date de création du compte</span>
+            <span class="font-medium text-gray-900">{{ client.createdAt | date:'mediumDate' }}</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block">Dernière demande</span>
+            <span class="font-medium text-gray-900">{{ client.lastOrderDate ? (client.lastOrderDate | date:'short') : 'Aucune' }}</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block">Statut Actuel</span>
+            <span *ngIf="client.hasActiveSubscription" class="inline-block mt-1 px-3 py-1 bg-green-100 text-green-800 rounded-full font-semibold text-xs">
+              ✓ Abonné (Jusqu'au {{ client.subscriptionEndDate | date:'mediumDate' }})
+            </span>
+            <span *ngIf="!client.hasActiveSubscription" class="inline-block mt-1 px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-medium text-xs">
+              Non Abonné / Inactif
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Validation des Formules de Paiement -->
+      <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <h2 class="text-lg font-semibold text-gray-800 border-b pb-3 mb-4">Gestion des Abonnements & Services</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Option 1: Abo Mensuel (2000 FCFA) -->
+          <div class="p-4 border rounded-lg bg-blue-50 border-blue-200 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase text-blue-600">Formule Illimitée</span>
+              <h3 class="text-base font-bold text-gray-800 mt-1">Abonnement Mensuel</h3>
+              <p class="text-2xl font-extrabold text-blue-700 my-2">2 000 FCFA <span class="text-xs font-normal text-gray-500">/ 30 jours</span></p>
+              <p class="text-xs text-gray-600">Accès illimité aux mises en relation avec les artisans.</p>
+            </div>
+            <button (click)="approveMonthlySubscription()" [disabled]="processingAction"
+                    class="mt-4 w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded transition shadow">
+              Approuver Abo 2 000 FCFA
+            </button>
+          </div>
+
+          <!-- Option 2: Service à l'acte (1000 FCFA) -->
+          <div class="p-4 border rounded-lg bg-purple-50 border-purple-200 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase text-purple-600">Formule à l'Acte</span>
+              <h3 class="text-base font-bold text-gray-800 mt-1">Service Unitaire</h3>
+              <p class="text-2xl font-extrabold text-purple-700 my-2">1 000 FCFA <span class="text-xs font-normal text-gray-500">/ demande</span></p>
+              <p class="text-xs text-gray-600">Valide le déblocage des coordonnées pour cette mission uniquement.</p>
+            </div>
+            <button (click)="approveSingleServicePayment()" [disabled]="processingAction"
+                    class="mt-4 w-full py-2 px-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs rounded transition shadow">
+              Approuver Ticket 1 000 FCFA
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Zone de Révocation / Inactivation -->
+        <div class="mt-6 pt-4 border-t flex justify-between items-center" *ngIf="client.hasActiveSubscription">
+          <div>
+            <p class="text-xs font-semibold text-red-600 uppercase">Zone de Danger</p>
+            <p class="text-xs text-gray-500">Mettre immédiatement fin à l'abonnement actif du client.</p>
+          </div>
+          <button (click)="revokeSubscription()" [disabled]="processingAction"
+                  class="py-1.5 px-4 bg-red-100 hover:bg-red-200 text-red-700 font-semibold text-xs rounded transition">
+            Révoquer l'Abonnement
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLONNE 3 : Historique des Abonnements / Transactions -->
+    <div class="bg-white p-6 rounded-lg shadow border border-gray-200 h-fit">
+      <h2 class="text-lg font-semibold text-gray-800 border-b pb-3 mb-4">Historique des Paiements</h2>
+
+      <div *ngIf="subscriptions.length === 0" class="text-xs text-gray-500 italic">
+        Aucun enregistrement trouvé.
+      </div>
+
+      <div class="space-y-3 max-h-[500px] overflow-y-auto" *ngIf="subscriptions.length > 0">
+        <div *ngFor="let sub of subscriptions" class="p-3 border rounded text-xs bg-gray-50">
+          <div class="flex justify-between font-bold mb-1">
+            <span>{{ sub.planType === 'MONTHLY' ? 'Abo Mensuel (2000 F)' : 'Ticket Unique (1000 F)' }}</span>
+            <span [ngClass]="{
+              'text-green-600': sub.status === 'ACTIVE',
+              'text-red-500': sub.status === 'EXPIRED' || sub.status === 'CANCELLED'
+            }">{{ sub.status }}</span>
+          </div>
+          <p class="text-gray-500">Du : {{ sub.startDate | date:'shortDate' }}</p>
+          <p class="text-gray-500">Au : {{ sub.endDate | date:'shortDate' }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

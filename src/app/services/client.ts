@@ -31,10 +31,37 @@ export class Client {
     });
   }
 
-  approveSubscription(clientId: string, durationDays: number = 30): Observable<void> {
+  // approveSubscription(clientId: string, durationDays: number = 30): Observable<void> {
+  //   return this.http.post<void>(
+  //     `${environment.apiUrl}/api/v1/admin/clients/${clientId}/subscriptions/approve`,
+  //     { durationDays },
+  //     { headers: this.getHeaders() }
+  //   );
+  // }
+
+  approveSubscription(
+    clientId: string,
+    paymentType: 'MONTHLY_SUBSCRIPTION' | 'PAY_PER_MATCH' = 'MONTHLY_SUBSCRIPTION',
+    amount: number = 2000,
+    durationDays: number = 30
+  ): Observable<void> {
     return this.http.post<void>(
       `${environment.apiUrl}/api/v1/admin/clients/${clientId}/subscriptions/approve`,
-      { durationDays },
+      { paymentType, amount, durationDays },
+      { headers: this.getHeaders() }
+    );
+  }
+
+  getClientById(clientId: string): Observable<ClientSummary> {
+    return this.http.get<ClientSummary>(`${environment.apiUrl}/api/v1/admin/clients/${clientId}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  revokeClientSubscription(clientId: string): Observable<void> {
+    return this.http.post<void>(
+      `${environment.apiUrl}/api/v1/admin/clients/${clientId}/subscriptions/revoke`,
+      {},
       { headers: this.getHeaders() }
     );
   }

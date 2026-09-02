@@ -1,5 +1,6 @@
 export interface ClientSubscription {
   id: string;
+  userId: string;
   planType: string;
   status: 'ACTIVE' | 'EXPIRED' | 'CANCELLED';
   startDate: string;
