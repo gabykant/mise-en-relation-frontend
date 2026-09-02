@@ -9,6 +9,7 @@ import { ArtisanEdit } from './components/artisan-edit/artisan-edit';
 import { ArtisanView } from './admin/components/artisan-view/artisan-view';
 import { Zone } from './admin/metadata/zone/zone';
 import { ClientList } from './admin/components/client-list/client-list';
+import { ClientDetail } from './admin/components/client-detail/client-detail';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
         children: [
             { path: 'requests', component: ServiceRequestList },
             { path: 'clients', component: ClientList },
+            { path: 'clients/view/:id', component: ClientDetail },
             { path: 'artisans', component: ArtisanList },
             { path: 'areas', component: Zone },
             { path: 'artisans/create', component: ArtisanCreate },

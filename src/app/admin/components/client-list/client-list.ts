@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from 'src/app/pipes/filter-pipe';
 import { Client as ClientService } from '@services/client';
+import { Router } from 'node_modules/@angular/router/types/_router_module-chunk';
 
 @Component({
   selector: 'app-client-list',
@@ -28,7 +29,8 @@ export class ClientList implements OnInit {
 
   constructor(
     @Inject(ClientService) private clientService: ClientService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,32 +54,37 @@ export class ClientList implements OnInit {
     });
   }
 
-  openClientModal(client: ClientSummary): void {
-    this.selectedClient = client;
-    this.loadingSubscriptions = true;
-    this.clientSubscriptions = [];
-    this.cdr.detectChanges();
+  // openClientModal(client: ClientSummary): void {
+  //   this.selectedClient = client;
+  //   this.loadingSubscriptions = true;
+  //   this.clientSubscriptions = [];
+  //   this.cdr.detectChanges();
 
-    this.clientService.getClientSubscriptions(client.id).subscribe({
-      next: (subs) => {
-        this.clientSubscriptions = subs;
-        this.loadingSubscriptions = false;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error(err);
-        this.loadingSubscriptions = false;
-        this.cdr.detectChanges();
-      }
-    });
+  //   this.clientService.getClientSubscriptions(client.id).subscribe({
+  //     next: (subs) => {
+  //       this.clientSubscriptions = subs;
+  //       this.loadingSubscriptions = false;
+  //       this.cdr.detectChanges();
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //       this.loadingSubscriptions = false;
+  //       this.cdr.detectChanges();
+  //     }
+  //   });
+  // }
+
+  // Redirection vers la fiche détaillée du client
+  viewClient(clientId: string): void {
+    this.router.navigate(['/admin/clients/view', clientId]);
   }
 
-  closeModal(): void {
-    this.selectedClient = null;
-    this.clientSubscriptions = [];
-  }
+  // closeModal(): void {
+  //   this.selectedClient = null;
+  //   this.clientSubscriptions = [];
+  // }
 
-  approveSubscription(): void {
+  /*approveSubscription(): void {
     if (!this.selectedClient) return;
 
     if (!confirm(`Activer / Renouveler l'abonnement mensuel de 30 jours pour le client ${this.selectedClient.phoneNumber} ?`)) {
@@ -101,5 +108,5 @@ export class ClientList implements OnInit {
         this.cdr.detectChanges();
       }
     });
-  }
+  }*/
 }
