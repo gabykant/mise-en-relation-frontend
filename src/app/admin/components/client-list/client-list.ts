@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from 'src/app/pipes/filter-pipe';
 import { Client as ClientService } from '@services/client';
-import { Router } from 'node_modules/@angular/router/types/_router_module-chunk';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',
